@@ -1,33 +1,19 @@
-import styles from "./page.module.css";
-
 export default function Home() {
   return (
-    <main className={styles.page}>
-      <section className={styles.hero}>
-        <p className={styles.kicker}>A memory care story</p>
-
-        <h1 className={styles.title}>
-          Love fills memory
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="bg-white p-8 rounded-2xl shadow-lg text-center max-w-md">
+        <h1 className="text-3xl font-bold text-gray-800">
+          Love Fills Memory
         </h1>
 
-        <p className={styles.subtitle}>
-          用愛填滿失去的記憶
+        <p className="mt-4 text-gray-600">
+          A memory care journal for family stories, moments, and love.
         </p>
 
-        <p className={styles.description}>
-          A calm space for remembering, caring, and preserving the moments that matter.
-        </p>
-
-        <div className={styles.buttons}>
-          <a className={styles.primaryButton} href="#">
-            Get Started
-          </a>
-
-          <a className={styles.secondaryButton} href="#">
-            Learn More
-          </a>
-        </div>
-      </section>
-    </main>
+        <button className="mt-6 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+          Start Writing
+        </button>
+      </div>
+    </div>
   );
 }
