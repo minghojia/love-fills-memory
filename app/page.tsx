@@ -1,34 +1,34 @@
-import { CSSProperties } from "react";
+import styles from "./page.module.css";
 
 export default function Home() {
-  const styles = {
-    container: {
-      height: "100vh",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-      textAlign: "center",
-      backgroundColor: "#fff",
-      fontFamily: "Arial",
-      padding: "20px",
-    } as CSSProperties,
-
-    title: {
-      fontSize: "2rem",
-      fontWeight: "bold",
-    } as CSSProperties,
-
-    subtitle: {
-      fontSize: "1.2rem",
-      marginTop: "10px",
-    } as CSSProperties,
-  };
-
   return (
-    <main style={styles.container}>
-      <h1 style={styles.title}>❤️ LOVE FILLS MEMORY</h1>
-      <p style={styles.subtitle}>用愛填滿失去的記憶</p>
+    <main className={styles.container}>
+      <h1 className={styles.title}>❤️ LOVE FILLS MEMORY</h1>
+      <p className={styles.subtitle}>用愛填滿失去的記憶</p>
     </main>
   );
+}
+
+
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #ffffff;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #555;
 }
