@@ -10,25 +10,3 @@ export default function Home() {
 }
 
 
-.container {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background-color: #ffffff;
-  font-family: Arial, sans-serif;
-  padding: 20px;
-}
-
-.title {
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin-bottom: 12px;
-}
-
-.subtitle {
-  font-size: 1.2rem;
-  color: #555;
-}
