@@ -3,16 +3,6 @@ import type { ReactNode } from "react";
 
 export const metadata = {
   title: "Love Fills Memory",
-  description: "A gentle AI caregiver tool",
-};
-
-export const metadata = {
-  title: "Love Fills Memory",
-  description: "Helping families preserve love when memories fade.",
-};
-
-export const metadata = {
-  title: "Love Fills Memory",
   description: "Helping families preserve love when memories fade.",
   openGraph: {
     title: "Love Fills Memory",
