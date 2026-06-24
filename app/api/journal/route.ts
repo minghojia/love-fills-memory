@@ -3,19 +3,28 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   const { text } = await req.json();
 
-  return NextResponse.json({
-    result: `
+  // 🔴 MVP SAFE MODE (no API key yet)
+  // We'll upgrade to real AI in C2
+
+  const response = generateInsight(text);
+
+  return NextResponse.json({ result: response });
+}
+
+// 🧠 Simple “AI-like engine” (temporary SaaS logic)
+function generateInsight(text: string) {
+  return `
 🧠 情緒分析：
-照護者可能處於疲勞與不確定狀態
+根據你的描述：「${text.slice(0, 20)}...」
+照護者可能處於高壓與疲憊狀態
 
 💬 建議回應：
-使用短句安撫，不要糾正內容
+使用短句 + 重複安撫語氣
 
-🌙 今日建議：
-維持環境穩定與語氣一致
+🌙 行為建議：
+避免對抗，維持環境穩定
 
-💖 提醒：
-你已經做得很好了
-    `.trim(),
-  });
+💖 照護提醒：
+你不是孤單的，這是長期照護的正常壓力
+  `.trim();
 }
