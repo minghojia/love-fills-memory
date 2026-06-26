@@ -1,7 +1,3 @@
-<a href="/care" className="px-6 py-3 rounded-full bg-black text-white">
-  試用 AI 照護助手
-</a>
-
 export default function Home() {
   return (
     <main className="bg-[#fafafa] text-[#1d1d1f]">
