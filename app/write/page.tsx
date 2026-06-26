@@ -12,6 +12,9 @@ type Entry = {
 async function generateAI(text: string) {
   const res = await fetch("/api/journal", {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({ text }),
   });
 
@@ -24,49 +27,55 @@ export default function WritePage() {
   const [entries, setEntries] = useState<Entry[]>([]);
   const [loading, setLoading] = useState(false);
 
+  // load from localStorage once
   useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem("journals") || "[]");
-    setEntries(saved);
+    const saved = localStorage.getItem("journals");
+    if (saved) {
+      setEntries(JSON.parse(saved));
+    }
   }, []);
 
- async function saveEntry() {
+  async function saveEntry() {
     if (!input.trim()) return;
 
     setLoading(true);
 
-    const output = await generateAI(input);
+    try {
+      const output = await generateAI(input);
 
-    const newEntry: Entry = {
-      id: Date.now(),
-      input,
-      output,
-      date: new Date().toISOString(),
-    };
+      const newEntry: Entry = {
+        id: Date.now(),
+        input,
+        output,
+        date: new Date().toISOString(),
+      };
 
-    const updated = [newEntry, ...entries];
+      const existing: Entry[] = JSON.parse(
+        localStorage.getItem("journals") || "[]"
+      );
 
-    localStorage.setItem("journals", JSON.stringify(updated));
-    setEntries(updated);
+      const updated = [newEntry, ...existing];
 
-    setInput("");
+      localStorage.setItem("journals", JSON.stringify(updated));
+      setEntries(updated);
 
-    setTimeout(() => {
+      setInput("");
+    } catch (err) {
+      console.error("Save failed:", err);
+    } finally {
       setLoading(false);
-    }, 400);
+    }
   }
 
   return (
     <main className="max-w-2xl mx-auto px-6 py-10 bg-[#FAF7F2] min-h-screen">
-      
       {/* Header */}
-      <h1 className="text-2xl font-semibold mb-2">
-        📖 Care Journal
-      </h1>
+      <h1 className="text-2xl font-semibold mb-2">📖 照護日記</h1>
       <p className="text-sm text-gray-500 mb-6">
         記錄照護中的每一天
       </p>
 
-      {/* Input Card */}
+      {/* Input */}
       <div className="bg-white rounded-2xl shadow-sm border p-4">
         <textarea
           className="w-full h-40 outline-none text-sm resize-none"
@@ -88,21 +97,17 @@ export default function WritePage() {
         {entries.map((e) => (
           <div
             key={e.id}
-            className="bg-white border rounded-2xl p-4 shadow-sm"
+            className="mt-3 p-3 bg-gray-50 rounded-xl text-xs text-gray-700 whitespace-pre-wrap leading-relaxed"
           >
-            <p className="text-xs text-gray-400">
+            <div className="text-[10px] text-gray-400 mb-2">
               {new Date(e.date).toLocaleString()}
-            </p>
+            </div>
 
-            <p className="mt-2 text-sm font-medium">
-              🧠 照護內容：{e.input}
-            </p>
+            <div className="font-medium text-gray-800 mb-2">
+              🧠 {e.input}
+            </div>
 
-            <pre className="mt-3 text-xs text-gray-600 whitespace-pre-wrap leading-relaxed">
-              <p className="mt-3 text-xs text-gray-600 whitespace-pre-wrap leading-relaxed">
-                 🤖 AI 回應：{e.output}
-              </p>
-            </pre>
+            <div>🤖 照護回應：{e.output}</div>
           </div>
         ))}
       </div>
